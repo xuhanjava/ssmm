@@ -2,9 +2,7 @@
 /.settings/
 /.classpath
 /.project
-/EcoTechlogsLoginService.log
 /.idea/
-/login-service.iml
 /build/
 /.git/
 *.log
