@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-    <bean id="serviceInterceptor" class="com.google.ssmm.interceptor.ControllerAspect"></bean>
+    <!--<bean id="serviceInterceptor" class="com.google.ssmm.interceptor.ControllerAspect"></bean>
     <aop:config>
       <aop:aspect id="b" ref="serviceInterceptor">
         <aop:pointcut id="tx"
@@ -18,28 +18,28 @@
         <aop:around pointcut-ref="tx" method="invoke" />
       </aop:aspect>
     </aop:config>
-
-    <bean id="SpringContextHolder"
+-->
+   <!-- <bean id="SpringContextHolder"
       class="com.ecotech.businessoperationconsole.util.SpringContextHolder"
       lazy-init="false" />
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
       <tx:attributes>
-        <!--其他方法使用默认事务策略 -->
+        &lt;!&ndash;其他方法使用默认事务策略 &ndash;&gt;
         <tx:method name="*" />
       </tx:attributes>
     </tx:advice>
-    <!-- AOP配置 -->
+    &lt;!&ndash; AOP配置 &ndash;&gt;
     <aop:config>
-      <!-- pointcut元素定义一个切入点，execution中的第一个星号 用以匹配方法的返回类型，这里星号表明匹配所有返回类型。com.abc.dao.*.*(..)表明匹配com.abc.dao包下的所有类的所有方法 -->
+      &lt;!&ndash; pointcut元素定义一个切入点，execution中的第一个星号 用以匹配方法的返回类型，这里星号表明匹配所有返回类型。com.abc.dao.*.*(..)表明匹配com.abc.dao包下的所有类的所有方法 &ndash;&gt;
       <aop:pointcut
         expression="execution(public * com.ecotech.businessoperationconsole.dao.impl.*.*(..))"
         id="daoPoint" />
       <aop:pointcut
         expression="execution(public * com.ecotech.businessoperationconsole.logic.*.*(..))"
         id="logicPoint" />
-      <!--将定义好的事务处理策略应用到上述的切入点 -->
+      &lt;!&ndash;将定义好的事务处理策略应用到上述的切入点 &ndash;&gt;
       <aop:advisor advice-ref="txAdvice" pointcut-ref="daoPoint" />
       <aop:advisor advice-ref="txAdvice" pointcut-ref="logicPoint" />
-    </aop:config>
+    </aop:config>-->
 
 </beans>
