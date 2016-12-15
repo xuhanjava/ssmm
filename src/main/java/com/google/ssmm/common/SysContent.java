@@ -1,4 +1,4 @@
-package com.google.ssmm.entity;
+package com.google.ssmm.common;
 
 import javax.servlet.http.HttpServletRequest;
 

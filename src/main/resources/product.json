@@ -1,0 +1,69 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "reverse_edge_ngram_analyzer": {
+          "tokenizer": "reverse_edge_ngram_tokenizer",
+          "filter": [
+            "lowercase",
+            "reverse",
+            "edgeNGram",
+            "reverse"
+          ]
+        }
+      },
+      "tokenizer": {
+        "reverse_edge_ngram_tokenizer": {
+          "type": "edgeNGram",
+          "min_gram": "2",
+          "max_gram": "60",
+          "token_chars": [
+            "letter",
+            "digit",
+            "whitespace"
+          ]
+        }
+      },
+      "filter": {
+        "edgeNGram": {
+          "type": "edgeNGram",
+          "min_gram": "2",
+          "max_gram": "60",
+          "token_chars": [
+            "letter",
+            "digit",
+            "whitespace"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "place": {
+      "properties": {
+        "name": {
+          "type": "keyword"
+        },
+        "studentId": {
+          "type": "long"
+        }
+        /* "cityName": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "defaultSortValue": {
+        "type": "long"
+      },
+      "geoLatLng": {
+        "type": "geo_point"
+      },
+      "geoLatitude": {
+        "type": "double"
+      },
+      "id": {
+        "type": "long"
+      }*/
+      }
+    }
+  }
+}

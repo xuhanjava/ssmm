@@ -10,24 +10,26 @@
         http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-    <!--<bean id="serviceInterceptor" class="com.google.ssmm.interceptor.ControllerAspect"></bean>
+   <!--lazy-init默认是false 就是在容器启动时候就实例话这个bean.另外如果scope设置为prototype的话，即使lazy-init为false，也不会在启动时候实例化这个bean-->
+   <bean id="serviceAspect" class="com.google.ssmm.interceptor.ServiceAspect" lazy-init="true"></bean>
     <aop:config>
-      <aop:aspect id="b" ref="serviceInterceptor">
+      <aop:aspect id="b" ref="serviceAspect">
         <aop:pointcut id="tx"
-          expression="execution(* com.ecotech.businessoperationconsole.controller.*.*(..))" />
+          expression="execution(* com.google.ssmm.controller.*.*(..))" />
         <aop:around pointcut-ref="tx" method="invoke" />
       </aop:aspect>
     </aop:config>
--->
+
+
+   <tx:advice id="txAdvice" transaction-manager="transactionManager">
+      <tx:attributes>
+        <!-- &lt;!&ndash;其他方法使用默认事务策略 &ndash;&gt;-->
+         <tx:method name="*" />
+      </tx:attributes>
+   </tx:advice>
    <!-- <bean id="SpringContextHolder"
       class="com.ecotech.businessoperationconsole.util.SpringContextHolder"
       lazy-init="false" />
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-      <tx:attributes>
-        &lt;!&ndash;其他方法使用默认事务策略 &ndash;&gt;
-        <tx:method name="*" />
-      </tx:attributes>
-    </tx:advice>
     &lt;!&ndash; AOP配置 &ndash;&gt;
     <aop:config>
       &lt;!&ndash; pointcut元素定义一个切入点，execution中的第一个星号 用以匹配方法的返回类型，这里星号表明匹配所有返回类型。com.abc.dao.*.*(..)表明匹配com.abc.dao包下的所有类的所有方法 &ndash;&gt;

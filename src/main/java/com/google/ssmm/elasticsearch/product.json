@@ -1,0 +1,29 @@
+{
+  "place": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "studentId": {
+        "type": "long"
+      }
+     /* "cityName": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "defaultSortValue": {
+        "type": "long"
+      },
+      "geoLatLng": {
+        "type": "geo_point"
+      },
+      "geoLatitude": {
+        "type": "double"
+      },
+      "id": {
+        "type": "long"
+      }*/
+    }
+  }
+}

@@ -1,17 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google</groupId>
   <artifactId>ssmm</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>ssmm Maven Webapp</name>
+  <name>ssmm</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Below properties will be used in mybatis-generator.xml -->
     <jdbc.driverClass>com.mysql.jdbc.Driver</jdbc.driverClass>
-    <jdbc.connectionURL>jdbc:mysql://test-space1bjs.cvrlck3hdzic.rds.cn-north-1.amazonaws.com.cn:3306/boc_database</jdbc.connectionURL>
+    <jdbc.connectionURL>jdbc:mysql://localhost:3306/xuhan</jdbc.connectionURL>
     <jdbc.userId>root</jdbc.userId>
     <jdbc.password>root</jdbc.password>
     <model.target.dir>${basedir}/src/main/java</model.target.dir>
@@ -25,6 +25,22 @@
     <version>1.2.2.RELEASE</version>
   </parent>
   <dependencies>
+    <dependency>
+      <groupId>org.elasticsearch.client</groupId>
+      <artifactId>transport</artifactId>
+      <version>5.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ecotech.service</groupId>
+      <artifactId>qiniu-client</artifactId>
+      <version>0.0.2</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
@@ -53,6 +69,41 @@
       <version>1.3.1</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.ecotech.service</groupId>
+      <artifactId>media-service-java-client</artifactId>
+      <version>0.0.13</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpcore</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.ecotech.common</groupId>
+          <artifactId>ecotech-common-lib</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.ecotech.service</groupId>
+      <artifactId>service-common</artifactId>
+      <version>0.0.43</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.ecotech.service</groupId>
+          <artifactId>login-service-java-client</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
     <!-- Test dependencies -->
     <dependency>
       <groupId>junit</groupId>
@@ -79,11 +130,6 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.3.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-      <version>4.4</version>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
@@ -187,20 +233,87 @@
       <artifactId>log4j-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>19.0</version>
-      <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.ecotech.service</groupId>
+      <artifactId>poi-service-java-client</artifactId>
+      <version>0.0.7</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.ecotech.common</groupId>
+          <artifactId>ecotech-common-lib</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.ecotech.common</groupId>
+      <artifactId>ecotech-common-lib</artifactId>
+      <version>0.0.22</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpcore</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.ecotech.common</groupId>
+          <artifactId>ecotech-common-lib</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.ecotech.service</groupId>
+          <artifactId>service-common</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.ecotech.service</groupId>
+          <artifactId>meta-data-service-java-client</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- s3  -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-aws-context</artifactId>
+      <version>1.1.0.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.generator</groupId>
+      <artifactId>mybatis-generator-core</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ecotech.service</groupId>
+      <artifactId>ecotech-mybatis-common</artifactId>
+      <version>0.0.10</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.ecotech.common</groupId>
+          <artifactId>ecotech-common-lib</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
   </dependencies>
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <properties>
+        <env>development</env>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault> <!-- use dev profile by default -->
+      </activation>
+    </profile>
+    <profile>
+      <id>prod</id>
+      <properties>
+        <env>production</env>
+      </properties>
+    </profile>
+  </profiles>
+
   <build>
     <plugins>
       <plugin>
@@ -239,7 +352,7 @@
         <artifactId>mybatis-generator-maven-plugin</artifactId>
         <version>1.3.1</version>
         <configuration>
-          <configurationFile>${basedir}/src/main/resources/mybatis-generator.xml</configurationFile>
+          <configurationFile>${basedir}/src/main/config/mybatis-generator.xml</configurationFile>
           <verbose>true</verbose>
           <overwrite>true</overwrite>
         </configuration>
@@ -249,6 +362,17 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.34</version>
           </dependency>
+
+          <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.2</version>
+          </dependency>
+          <dependency>
+            <groupId>com.ecotech.service</groupId>
+            <artifactId>ecotech-mybatis-common</artifactId>
+            <version>0.0.10</version>
+          </dependency>
         </dependencies>
       </plugin>
 
@@ -257,6 +381,25 @@
         <artifactId>maven-deploy-plugin</artifactId>
         <configuration>
           <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.5.1</version>
+        <executions>
+          <execution>
+            <id>default-deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <serverId>ecotech-nexus</serverId>
+          <nexusUrl>http://10.5.201.116/content/repositories</nexusUrl>
+          <skipStaging>true</skipStaging>
         </configuration>
       </plugin>
       <plugin>
@@ -288,5 +431,39 @@
 
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>ecotech-nexus</id>
+      <url>http://10.5.201.116/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>ecotech-nexus</id>
+      <url>http://10.5.201.116/content/groups/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
+  <distributionManagement>
+    <repository>
+      <id>ecotech-nexus</id>
+      <url>http://10.5.201.116/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>ecotech-nexus</id>
+      <url>http://10.5.201.116/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
