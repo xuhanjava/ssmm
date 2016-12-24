@@ -6,7 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.UUID;
 
 /**
@@ -45,4 +47,10 @@ public class EnumTest {
         System.out.println(count);
     }
 
+    @Test
+    public void testSD(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        System.out.println(sdf.format(new Date()));
+    }
 }
