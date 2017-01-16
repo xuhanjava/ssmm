@@ -1,6 +1,7 @@
 package com.google.ssmm.ThreadTest;
 
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -9,8 +10,11 @@ import java.util.concurrent.TimeUnit;
  * Created by xuhan on 16-12-22.
  */
 public class ThreadTest4 {
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         //新的任务塞进队列中塞不进去
+        //当线程数量大于corePoolSize时，在没有超过制定的时间内是不从线程池中将空闲线程删除的，如果超过这个时间的话才会删除。若为0的话则任务执行完成过后
+        //立即从队列中删除
+
         ThreadPoolExecutor pool = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
             60L, TimeUnit.SECONDS,
             new SynchronousQueue<Runnable>());
@@ -44,6 +48,53 @@ public class ThreadTest4 {
             @Override public void run() {
                 System.out.println(2);
                 System.out.println(Thread.currentThread().getName());
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(1, 1,
+            0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>());
+        pool.execute(new Runnable() {
+            @Override public void run() {
+                System.out.println(Thread.currentThread().getName() + "begin");
+                try {
+                    Thread.sleep(1000l);
+                    System.out.println(Thread.currentThread().getName() + "end");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        pool.execute(new Runnable() {
+            @Override public void run() {
+                System.out.println(Thread.currentThread().getName() + "begin");
+                try {
+                    Thread.sleep(1000l);
+                    System.out.println(Thread.currentThread().getName() + "end");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        System.out.println("main end");
+        pool.shutdown();
+        pool.execute(new Runnable() {
+            @Override public void run() {
+                System.out.println(Thread.currentThread().getName() + "begin");
+                try {
+                    Thread.sleep(1000l);
+                    System.out.println(Thread.currentThread().getName() + "end");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

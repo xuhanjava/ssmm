@@ -5,5 +5,6 @@
     <mappers>
         <mapper resource="com/google/ssmm/mappers/TableOneMapper.xml"></mapper>
         <mapper resource="com/google/ssmm/mappers/TableTwoMapper.xml"></mapper>
+        <mapper resource="com/google/ssmm/mappers/FruitMapper.xml"></mapper>
     </mappers>
 </configuration>

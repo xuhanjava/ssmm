@@ -5,6 +5,8 @@ import com.google.ssmm.config.DataConfig;
 import com.google.ssmm.config.DataSourceConfig;
 import com.google.ssmm.config.WebAppInitializer;
 import com.google.ssmm.config.WebConfig;
+import com.google.ssmm.dao.FruitMapper;
+import com.google.ssmm.entity.Fruit;
 import com.google.ssmm.entity.TableOne;
 import com.google.ssmm.service.FirstServiceInterface;
 import com.google.ssmm.service.SecondServiceInterface;
@@ -30,6 +32,7 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -48,6 +51,9 @@ public class SpringTest {
 
     @Autowired
     private SecondServiceInterface secondService;
+
+    @Autowired
+    private FruitMapper fruitMapper;
 
     @Test
     public void testTransaction() {
@@ -107,7 +113,20 @@ public class SpringTest {
         // 完毕，关闭所有链接
         os.close();
         is.close();
+    }
+    //-------------------------------------------------------------------------------------
 
+    @Test
+    public void testMapper()throws Exception{
+        Fruit fruit = fruitMapper.selectById(1l);
+
+        System.out.println(fruit);
+    }
+
+    @Test
+    public void testSql()throws Exception{
+        List<Map<Object, Object>> map = fruitMapper.selectExample();
+        System.out.println(123);
     }
 
 }
