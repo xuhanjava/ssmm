@@ -1,13 +1,21 @@
 package com.google.ssmm;
 
+import com.google.ssmm.controller.Controller1;
 import com.google.ssmm.entity.Student;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
+import org.slf4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -19,6 +27,7 @@ import java.util.UUID;
  * Created by xuhan on 16-11-18.
  */
 public class EnumTest {
+    private static Logger logger = org.slf4j.LoggerFactory.getLogger(EnumTest.class);
     @Test
     public void testSeason(){
         System.out.println(Season.AUTUMN.getValue());
@@ -97,6 +106,76 @@ public class EnumTest {
         a2.add("1");
         a1.addAll(a2);
         System.out.println(a1);
+    }
+
+    /**
+     * 遍历对象的全部属性
+     */
+    @Test
+    public void testReflectionFields(){
+        Controller1 con = new Controller1();
+        Class<? extends Controller1> a = con.getClass();
+        Field[] fields = a.getDeclaredFields();
+        for(Field field : fields){
+            System.out.println("name:"+field.getName() + ",type:"+field.getType());
+            System.out.println(Modifier.toString(field.getModifiers()));
+        }
+        System.out.println("----------------------------------");
+        Method[] methods = a.getMethods();
+        int i= 1;
+        for(Method method :methods){
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            Class<?> returnType = method.getReturnType();
+            for(Class parameterType : parameterTypes){
+                System.out.println(parameterType.getName()+" -> "+ returnType.getName());
+            }
+            Annotation[] annotations = method.getAnnotations();
+            System.out.println(annotations.toString());
+            System.out.println("--------------------"+(i++)+"------------------method.name:"+method.getName());
+        }
+    }
+
+    /**
+     * ArrayUtils的一些基本用法
+     */
+    @Test
+    public void testArray(){
+        int[] intArray = new int[]{1,2,32,12,1};
+        int[] intArray2 = new int[]{22,11,33};
+        int[] ints = ArrayUtils.removeElement(intArray, 2);
+        int[] ints1 = ArrayUtils.addAll(intArray, intArray2);
+        ArrayUtils.reverse(ints1);
+        System.out.println(ints1);
+    }
+
+
+    /**
+     * 判断数组中是否包含某个数的时候
+     */
+    @Test
+    public void testArray2() {
+        Integer[] arrays = new Integer[] {1, 3, 2};
+        boolean contains = Arrays.asList(arrays).contains(1);
+        System.out.println(contains);
+    }
+
+    /**
+     * 看是否是多个线程共享同一个资源
+     */
+    @Test
+    public void testMultipleThread(){
+        Runnable thread = new Thread(){
+            @Override public void run() {
+                System.out.println(currentThread().hashCode() + "-"+ currentThread().getName());
+            }
+        };
+        new Thread(thread,"1").start();
+        new Thread(thread,"2").start();
+    }
+
+    @Test
+    public void test1(){
+        logger.info("123:",123);
     }
 
 }

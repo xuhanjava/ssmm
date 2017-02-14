@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by xuhan on 16-12-13.
@@ -125,8 +126,10 @@ public class SpringTest {
 
     @Test
     public void testSql()throws Exception{
-        List<Map<Object, Object>> map = fruitMapper.selectExample();
-        System.out.println(123);
+        //List<Map<Object, Object>> map = fruitMapper.selectExample();
+        //System.out.println(123);
+
+        //ReentrantLock lock =
     }
 
 }

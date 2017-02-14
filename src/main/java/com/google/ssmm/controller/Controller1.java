@@ -27,6 +27,7 @@ public class Controller1 {
 
     private Logger logger = LoggerFactory.getLogger(Controller1.class);
 
+    private static final String XUHAN="xuhan";
     /**
      * 不能加上@ResponseBody这个注解,否则是方法的返回值
      * @return
