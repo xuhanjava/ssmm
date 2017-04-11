@@ -22,4 +22,11 @@
         select f.ID as id1,f.NAME as name1,a.ID as id2,a.NAME as name2
         from FRUIT f left OUTER join APPLE a ON  f.ID = a.FRUIT_ID
     </select>
+
+    <insert id="insertFruit" parameterType="com.google.ssmm.entity.Fruit">
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+          select LAST_INSERT_ID()
+        </selectKey>
+        insert into FRUIT(NAME,COLOUR) VALUES(#{name,jdbcType=INTEGER},#{colour,jdbcType=VARCHAR})
+    </insert>
 </mapper>

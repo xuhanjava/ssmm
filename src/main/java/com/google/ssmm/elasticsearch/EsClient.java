@@ -23,6 +23,8 @@ public class EsClient {
             .put("cluster.name", "xuhan-test")
             .put("client.transport.sniff", true)
             .build();
+
+        //下面的主要是说每隔5s中去嗅探查找 可用的节点加入到集群中来
         //Add transport addresses and do something with the client...
         //不加入集群，远程调用。自动的探查下面地址的机器  connect to the nodes in its internal node list
 
@@ -52,6 +54,7 @@ public class EsClient {
         //得把hosts文件给改了。 之后再 sudo /etc/init.d/networking restart
         //还有可能是stackoverflower 所以得把内存设置的大一点
         try {
+            //getByName("xuhan")
             client = new PreBuiltTransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("xuhan"), 9300));
         } catch (Exception e) {

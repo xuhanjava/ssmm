@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -58,9 +59,11 @@ public class SpringTest {
 
     @Test
     public void testTransaction() {
-        TableOne one = new TableOne();
-        one.setName("oneXuhan");
-        firstService.insertTableOne(one);
+        for(int i=0;i<=10000;i++){
+            String[] colours = new String[]{"BLACK","WHITE","RED","GREEN","BLUE","GREEN","GRAY","VIOLET","YELLOW"};
+            Fruit fruit = new Fruit(null, UUID.randomUUID().toString(),colours[i%colours.length],null);
+            fruitMapper.insertFruit(fruit);
+        }
     }
 
     @Test

@@ -21,6 +21,7 @@ public class Fruit {
         this.apples = apples;
     }
 
+
     public Integer getId() {
         return id;
     }

@@ -11,4 +11,5 @@ import java.util.Map;
 public interface FruitMapper {
     Fruit selectById(Long id);
     List<Map<Object,Object>> selectExample();
+    long insertFruit(Fruit fruit);
 }

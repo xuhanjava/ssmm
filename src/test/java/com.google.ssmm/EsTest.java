@@ -60,9 +60,9 @@ public class EsTest {
 
     @Test
     public void testCreateWithJson() throws JsonProcessingException {
-        Student student = new Student(20114576, "Walter");
+        Student student = new Student(20114577, "Walter1");
         byte[] bytes = mapper.writeValueAsBytes(student);
-        IndexResponse response = esClient.prepareIndex("xuhan_index", "place", "3").setSource(bytes).get();
+        IndexResponse response = esClient.prepareIndex("xuhan_index", "place", "4").setSource(bytes).get();
         // Index name
         String _index = response.getIndex();
         // Type name
@@ -144,7 +144,7 @@ public class EsTest {
     }
 
     /**
-     * routing.默认的是以id作为routing的值。为什么使用 routing。。一个个性化的routing值可以确保相关的文档存储到同样的分片上
+     * routing.默认的是以document id作为routing的值。为什么使用 routing。。一个个性化的routing值可以确保相关的文档存储到同样的分片上
      * 不使用：请告诉我，USER1的文档数量一共有多少
      * 使用了:请告诉我，USER1的文档数量一共有多少，它就在第三个分片上，其它的分片就不要去扫描了”
      * index twitter:
