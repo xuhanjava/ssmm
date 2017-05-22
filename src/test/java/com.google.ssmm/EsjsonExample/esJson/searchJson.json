@@ -1,0 +1,94 @@
+curl -XGET '10.5.11.86:9200/my_index/my_type/_search?pretty' -d '
+{
+  "from": 0,
+  "size": 10,
+  "post_filter": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "isListed": {
+              "value": "Y",
+              "boost": 1.0
+            }
+          }
+        }
+      ],
+      "should": [
+        {
+          "nested": {
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "nested": {
+                      "query": {
+                        "bool": {
+                          "must": [
+                            {
+                              "nested": {
+                                "query": {
+                                  "bool": {
+                                    "must": [
+                                      {
+                                        "term": {
+                                          "offers.offerPayments.dailyPrices.date": {
+                                            "value": 1493865828527,
+                                            "boost": 1.0
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "disable_coord": false,
+                                    "adjust_pure_negative": true,
+                                    "boost": 1.0
+                                  }
+                                },
+                                "path": "offers.offerPayments.dailyPrices",
+                                "ignore_unmapped": false,
+                                "score_mode": "avg",
+                                "boost": 1.0
+                              }
+                            }
+                          ],
+                          "disable_coord": false,
+                          "adjust_pure_negative": true,
+                          "boost": 1.0
+                        }
+                      },
+                      "path": "offers.offerPayments",
+                      "ignore_unmapped": false,
+                      "score_mode": "avg",
+                      "boost": 1.0
+                    }
+                  }
+                ],
+                "disable_coord": false,
+                "adjust_pure_negative": true,
+                "boost": 1.0
+              }
+            },
+            "path": "offers",
+            "ignore_unmapped": false,
+            "score_mode": "avg",
+            "boost": 1.0
+          }
+        }
+      ],
+      "minimum_should_match":0,
+      "disable_coord": false,
+      "adjust_pure_negative": true,
+      "boost": 1.0
+    }
+  },
+  "explain": true,
+  "sort": [
+    {
+      "defaultSortValue": {
+        "order": "desc",
+        "unmapped_type": "long"
+      }
+    }
+  ],
+  "ext": {}
+}

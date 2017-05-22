@@ -1,0 +1,143 @@
+{
+  "from" : 0,
+  "size" : 10,
+  "post_filter" : {
+    "bool" : {
+      "must" : [
+        {
+          "term" : {
+            "isListed" : {
+              "value" : "Y",
+              "boost" : 1.0
+            }
+          }
+        }
+      ],
+      "should" : [
+        {
+          "nested" : {
+            "query" : {
+              "bool" : {
+                "must" : [
+                  {
+                    "nested" : {
+                      "query" : {
+                        "bool" : {
+                          "must" : [
+                            {
+                              "term" : {
+                                "spaces.ratePlans.priceUnit" : {
+                                  "value" : -1,
+                                  "boost" : 1.0
+                                }
+                              }
+                            }
+                          ],
+                          "disable_coord" : false,
+                          "adjust_pure_negative" : true,
+                          "boost" : 1.0
+                        }
+                      },
+                      "path" : "spaces.ratePlans",
+                      "ignore_unmapped" : false,
+                      "score_mode" : "avg",
+                      "boost" : 1.0
+                    }
+                  }
+                ],
+                "disable_coord" : false,
+                "adjust_pure_negative" : true,
+                "boost" : 1.0
+              }
+            },
+            "path" : "spaces",
+            "ignore_unmapped" : false,
+            "score_mode" : "avg",
+            "boost" : 1.0
+          }
+        },
+        {
+          "nested" : {
+            "query" : {
+              "bool" : {
+                "must" : [
+                  {
+                    "term" : {
+                      "offers.priceUnit" : {
+                        "value" : -1,
+                        "boost" : 1.0
+                      }
+                    }
+                  },
+                  {
+                    "nested" : {
+                      "query" : {
+                        "bool" : {
+                          "must" : [
+                            {
+                              "nested" : {
+                                "query" : {
+                                  "bool" : {
+                                    "must" : [
+                                      {
+                                        "term" : {
+                                          "offers.offerPayments.dailyPrices.date" : {
+                                            "value" : 1494509159215,
+                                            "boost" : 1.0
+                                          }
+                                        }
+                                      }
+                                    ],
+                                    "disable_coord" : false,
+                                    "adjust_pure_negative" : true,
+                                    "boost" : 1.0
+                                  }
+                                },
+                                "path" : "offers.offerPayments.dailyPrices",
+                                "ignore_unmapped" : false,
+                                "score_mode" : "avg",
+                                "boost" : 1.0
+                              }
+                            }
+                          ],
+                          "disable_coord" : false,
+                          "adjust_pure_negative" : true,
+                          "boost" : 1.0
+                        }
+                      },
+                      "path" : "offers.offerPayments",
+                      "ignore_unmapped" : false,
+                      "score_mode" : "avg",
+                      "boost" : 1.0
+                    }
+                  }
+                ],
+                "disable_coord" : false,
+                "adjust_pure_negative" : true,
+                "boost" : 1.0
+              }
+            },
+            "path" : "offers",
+            "ignore_unmapped" : false,
+            "score_mode" : "avg",
+            "boost" : 1.0
+          }
+        }
+      ],
+      "disable_coord" : false,
+      "adjust_pure_negative" : true,
+      "minimum_should_match" : "1",
+      "boost" : 1.0
+    }
+  },
+  "explain" : true,
+  "sort" : [
+    {
+      "defaultSortValue" : {
+        "order" : "desc",
+        "unmapped_type" : "long"
+      }
+    }
+  ],
+  "ext" : { }
+}

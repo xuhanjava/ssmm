@@ -29,7 +29,8 @@ public class FirstServiceImpl implements FirstServiceInterface {
             oneMapper.insertSelective(one);
             TableTwo one2 = new TableTwo();
             secondService.insertTableTwo(one2);
-            return oneMapper.getLastInsertedKey();
+            return 0l;
+            //return oneMapper.getLastInsertedKey();
         }catch (Exception e){
             throw new RuntimeException();
         }

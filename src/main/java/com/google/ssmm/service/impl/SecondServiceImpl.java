@@ -18,7 +18,8 @@ public class SecondServiceImpl implements SecondServiceInterface{
     @Override
     public long insertTableTwo(TableTwo one) {
         twoMapper.insertSelective(one);
-        return twoMapper.getLastInsertedKey();
+        return 0l;
+        //return twoMapper.getLastInsertedKey();
     }
 
     @Override public long updateTableTwo(TableTwo one) {

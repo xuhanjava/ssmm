@@ -11,20 +11,25 @@ import org.slf4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.security.SecureRandom;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
+import java.util.concurrent.Executors;
 
 /**
  * Created by xuhan on 16-11-18.
@@ -218,4 +223,59 @@ public class EnumTest {
         System.out.println(format);
     }
 
+    @Test
+    public void testStringSplice(){
+        String s = "BCH-0XR81LG";
+        String substring = s.substring(4, s.length());
+        System.out.println(substring);
+    }
+
+    @Test
+    public void testEnv(){
+        Map<String, String> maps = System.getenv();
+        for(Map.Entry<String,String> entry : maps.entrySet()){
+            System.out.println(entry.getKey()+":"+entry.getValue());
+        }
+    }
+
+    @Test
+    public void testSDS(){
+        StringBuilder sb = new StringBuilder();
+        System.out.println(sb.toString().endsWith(","));
+    }
+
+    @Test
+    public void testLiteral(){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date beginDate = cal.getTime();
+
+        cal.add(Calendar.DATE, 1);
+        Date endDate = cal.getTime();
+        System.out.println(123);
+    }
+
+    @Test
+    public void testStringButeSize() throws UnsupportedEncodingException {
+        String a = "123asd123";
+        System.out.println("size:"+a.getBytes("Unicode").length);
+        System.out.println("size:"+a.getBytes("utf-8").length);
+
+        String b = "许寒茶色哦电话哦地区和文档";
+        System.out.println("size:"+b.getBytes("Unicode").length);
+        System.out.println("size:"+b.getBytes("utf-8").length);
+
+    }
+
+    @Test
+    public void testSas() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Date endDate = new Date(new Date().getTime() + 7* 24 * 60 * 60 * 1000);
+        Date newDate = sdf.parse(sdf.format(endDate));
+        System.out.println(newDate);
+        System.out.println(newDate.getTime());
+    }
 }

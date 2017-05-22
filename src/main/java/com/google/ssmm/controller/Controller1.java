@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 /**
  * Created by xuhan on 16-12-7.
@@ -37,7 +38,7 @@ public class Controller1 {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("first");
         modelAndView.addObject(new Student(123,"123oh,yeah!"));
-
+        Executors.newFixedThreadPool(4);
         return modelAndView;
     }
 

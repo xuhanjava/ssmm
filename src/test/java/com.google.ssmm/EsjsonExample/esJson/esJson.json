@@ -1,0 +1,67 @@
+{
+  "from": 0,
+  "size": 15,
+  "post_filter": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "cityName": {
+              "value": "北京",
+              "boost": 1.0
+            }
+          }
+        },
+        {
+          "term": {
+            "isListed": {
+              "value": "Y",
+              "boost": 1.0
+            }
+          }
+        },
+        {
+          "nested": {
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "nested": {
+                      "query": {
+                        "bool": {
+                          "must": [
+                            {
+                              "exists": {
+                                "field": "spaces.ratePlans",
+                                "boost": 1.0
+                              }
+                            }
+                          ],
+                          "disable_coord": false,
+                          "adjust_pure_negative": true,
+                          "boost": 1
+                        }
+                      },
+                      "path": "spaces.ratePlans",
+                      "ignore_unmapped": false,
+                      "score_mode": "avg",
+                      "boost": 1
+                    }
+                  }
+                ],
+                "disable_coord": false,
+                "adjust_pure_negative": true,
+                "boost": 1.0
+              }
+            },
+            "path": "spaces",
+            "ignore_unmapped": false,
+            "score_mode": "avg",
+            "boost": 1
+          }
+        }
+      ]
+    }
+  }
+}
+'
