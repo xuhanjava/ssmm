@@ -37,17 +37,6 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.ecotech.service</groupId>
-      <artifactId>qiniu-client</artifactId>
-      <version>0.0.2</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-codec</groupId>
-          <artifactId>commons-codec</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
       <version>3.2.8</version>
@@ -411,29 +400,30 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <inherited>true</inherited>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <compilerVersion>1.8</compilerVersion>
+          <source>1.8</source>
+          <target>1.8</target>
           <encoding>utf-8</encoding>
         </configuration>
       </plugin>
       <!-- Official doc on goals: http://tomcat.apache.org/maven-plugin-2.2/context-goals.html
         Undeploy: mvn tomcat7:undeploy Deploy: mvn tomcat7:redeploy -->
-      <plugin>
+      <!--<plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
-          <!-- <url>http://localhost:8080/manager/text</url> -->
-          <!-- <server>localtomcat</server> -->
-          <!-- prod -->
+          &lt;!&ndash; <url>http://localhost:8080/manager/text</url> &ndash;&gt;
+          &lt;!&ndash; <server>localtomcat</server> &ndash;&gt;
+          &lt;!&ndash; prod &ndash;&gt;
           <url>http://54.223.155.204:3800/manager/text</url>
-          <!-- test -->
-          <!-- <url>http://54.223.172.38:3800/manager/text</url> -->
+          &lt;!&ndash; test &ndash;&gt;
+          &lt;!&ndash; <url>http://54.223.172.38:3800/manager/text</url> &ndash;&gt;
           <server>AWSServer</server>
           <path>/productservice</path>
           <URIEncoding>UTF-8</URIEncoding>
         </configuration>
-      </plugin>
+      </plugin>-->
 
       <plugin>
         <!-- Official doc on running with Maven: http://mybatis.github.io/generator/running/runningWithMaven.html#
@@ -473,7 +463,7 @@
           <skip>true</skip>
         </configuration>
       </plugin>
-      <plugin>
+      <!--<plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
         <version>1.5.1</version>
@@ -491,7 +481,7 @@
           <nexusUrl>http://10.5.201.116/content/repositories</nexusUrl>
           <skipStaging>true</skipStaging>
         </configuration>
-      </plugin>
+      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -521,32 +511,10 @@
 
     </plugins>
   </build>
-  <repositories>
-    <repository>
-      <id>ecotech-nexus</id>
-      <url>http://10.5.201.116/content/groups/public/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>ecotech-nexus</id>
-      <url>http://10.5.201.116/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 
-  <distributionManagement>
+
+
+  <!--<distributionManagement>
     <repository>
       <id>ecotech-nexus</id>
       <url>http://10.5.201.116/content/repositories/releases</url>
@@ -555,5 +523,5 @@
       <id>ecotech-nexus</id>
       <url>http://10.5.201.116/content/repositories/snapshots</url>
     </snapshotRepository>
-  </distributionManagement>
+  </distributionManagement>-->
 </project>

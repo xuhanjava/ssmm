@@ -7,18 +7,13 @@ import com.google.ssmm.config.WebAppInitializer;
 import com.google.ssmm.config.WebConfig;
 import com.google.ssmm.dao.FruitMapper;
 import com.google.ssmm.entity.Fruit;
-import com.google.ssmm.entity.TableOne;
 import com.google.ssmm.service.FirstServiceInterface;
 import com.google.ssmm.service.SecondServiceInterface;
-import com.sun.xml.internal.ws.api.server.SDDocumentFilter;
-import com.sun.xml.internal.ws.policy.SimpleAssertion;
-import org.hibernate.validator.constraints.br.TituloEleitoral;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -29,14 +24,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.UUID;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by xuhan on 16-12-13.
