@@ -251,6 +251,7 @@ public class LambdaStreamTest {
     
     @Test
     public void testMapToInt(){
-        Stream.of("1","3","2").mapToLong(value ->Long.valueOf(value));
+        Map<Integer, List<Integer>> collect = Stream.of(1, 3, 3, 5).collect(Collectors.groupingBy(i -> i));
+        System.out.println(collect);
     }
 }

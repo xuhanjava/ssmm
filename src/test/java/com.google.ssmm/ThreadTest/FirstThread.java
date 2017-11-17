@@ -2,6 +2,9 @@ package com.google.ssmm.ThreadTest;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RunnableFuture;
@@ -10,6 +13,8 @@ import java.util.concurrent.RunnableFuture;
  * Created by xuhan on 16-12-17.
  */
 public class FirstThread {
+
+    volatile List<Integer> list = new ArrayList<>();
 
     /**
      * 线程池 场景：执行时间很短且数目很多的请求为之创建线程的消耗比较大.Executor(接口) ExecutorService子接口->AbstractExecutorService抽象类
@@ -56,5 +61,21 @@ public class FirstThread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
+    }
+
+    @Test
+    public void testVoliate() throws InterruptedException {
+        CountDownLatch countDownLatch = new CountDownLatch(2);
+        Runnable r = ()->{
+            list.add(12331);
+            countDownLatch.countDown();
+        };
+        Thread t = new Thread(r);
+        t.start();
+        System.out.println("main end!");
+        countDownLatch.countDown();
+        countDownLatch.await();
+        System.out.println(list);
+
     }
 }

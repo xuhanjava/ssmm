@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.ssmm.controller.Controller1;
 import com.google.ssmm.entity.Apple;
@@ -36,6 +37,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -1050,5 +1052,124 @@ public class EnumTest {
         System.out.println(i.hashCode());
         i =5;
         System.out.println(i.hashCode());
+    }
+
+    @Test
+    public void testMapDisplay(){
+        Map<Integer,Integer> map = Maps.newHashMap();
+        map.put(1,2);
+        map.put(11,11);
+        map.put(3,4);
+        map.put(131,2);
+        map.put(21,2);
+        map.put(31,2);
+        map.put(13,2);
+        map.put(41,2);
+        map.put(51,2);
+        map.put(12,2);
+
+        map.forEach((key,value)->{
+            if(key >10 && key < 12){
+                System.out.println(value);
+            }else{
+                return;
+            }
+        });
+    }
+
+    @Test
+    public void testCountDownLatch123(){
+        CountDownLatch countDownLatch = new CountDownLatch(1200000);
+        System.out.println(countDownLatch);
+    }
+
+    @Test
+    public void testSubList123(){
+        List<Integer> integers = Lists.newArrayList(12, 3, 4, 1, 4);
+        List<Integer> integers1 = integers.subList(0, 2);
+        List<Object> temp = Lists.newArrayList();
+        temp.addAll(integers1);
+        temp.add(12313);
+        System.out.println(integers);
+        System.out.println(integers1);
+        System.out.println(temp);
+    }
+
+    @Test
+    public void testSs(){
+        int intA = 100;
+        System.out.println((int)Math.ceil(intA/100.0));
+    }
+
+    @Test
+    public void testSubstring123(){
+        String str = "123";
+        System.out.println(str.substring(0,str.length()-1));
+    }
+
+    @Test
+    public void testStringReplace(){
+        String str = "[[1]],[[2,124]]";
+        str =  str.replace("[","");
+        str = str.replace("]","");
+        System.out.println(str);
+    }
+
+    @Test
+    public void testArrays(){
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+        System.out.println(integers.size());
+        //new Arrays.ArrayList
+    }
+
+    @Test
+    public void testYiWei(){
+        System.out.println(2<<1);
+        System.out.println(12>>1);
+        System.out.println(12>>>1);
+    }
+
+    @Test
+    public void testHashSet(){
+        HashSet hashSet = new HashSet();
+        hashSet.add(12);
+    }
+
+    @Test
+    public void testCol(){
+        long count = Stream.of(1, 2, 3).parallel().filter(i -> i > 2).count();
+        System.out.println(count);
+    }
+
+    @Test
+    public void testFlatMap(){
+        Stream<List<Integer>> inputStream = Stream.of(
+                Arrays.asList(1),
+                Arrays.asList(2, 3),
+                Arrays.asList(4, 5, 6)
+        );
+       inputStream.
+                flatMap((childList) -> childList.stream()).filter(i ->i>1).findAny();
+    }
+
+    @Test
+    public void testRemove(){
+        List list = Lists.newArrayList(12,3,4,4,5,6,7,8,9);
+        List otherList = Lists.newArrayList(12,12,14,112,13);
+        list.removeAll(otherList);
+        System.out.println(list);
+    }
+
+    @Test
+    public void testSublist(){
+        List list = Lists.newArrayList(1);
+        List list1 = list.subList(0, 1);
+        System.out.println(list1);
+    }
+
+    @Test
+    public void testFunction(){
+        Function<Integer,String> fun = i->"value:"+i;
+        System.out.println(fun.apply(123));
     }
 }
