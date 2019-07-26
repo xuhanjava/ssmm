@@ -31,15 +31,15 @@
       <version>5.0.1</version>
     </dependency>
     <dependency>
-      <groupId>com.ecotech.service</groupId>
-      <artifactId>qiniu-client</artifactId>
-      <version>0.0.2</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-codec</groupId>
-          <artifactId>commons-codec</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka_2.10</artifactId>
+      <version>0.10.0.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>0.10.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.mybatis</groupId>
@@ -69,40 +69,6 @@
       <version>1.3.1</version>
     </dependency>
 
-    <dependency>
-      <groupId>com.ecotech.service</groupId>
-      <artifactId>media-service-java-client</artifactId>
-      <version>0.0.13</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-codec</groupId>
-          <artifactId>commons-codec</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>httpcore</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.ecotech.common</groupId>
-          <artifactId>ecotech-common-lib</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.ecotech.service</groupId>
-      <artifactId>service-common</artifactId>
-      <version>0.0.43</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-codec</groupId>
-          <artifactId>commons-codec</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.ecotech.service</groupId>
-          <artifactId>login-service-java-client</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
 
     <!-- Test dependencies -->
     <dependency>
@@ -232,68 +198,12 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>19.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.ecotech.service</groupId>
-      <artifactId>poi-service-java-client</artifactId>
-      <version>0.0.7</version>
-      <exclusions>
-        <exclusion>
-          <groupId>com.ecotech.common</groupId>
-          <artifactId>ecotech-common-lib</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.ecotech.common</groupId>
-      <artifactId>ecotech-common-lib</artifactId>
-      <version>0.0.22</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>httpcore</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.ecotech.common</groupId>
-          <artifactId>ecotech-common-lib</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.ecotech.service</groupId>
-          <artifactId>service-common</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.ecotech.service</groupId>
-          <artifactId>meta-data-service-java-client</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+      <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.18.6</version>
+      </dependency>
 
-    <!-- s3  -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-aws-context</artifactId>
-      <version>1.1.0.RELEASE</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mybatis.generator</groupId>
-      <artifactId>mybatis-generator-core</artifactId>
-      <version>1.3.2</version>
-    </dependency>
-    <dependency>
-      <groupId>com.ecotech.service</groupId>
-      <artifactId>ecotech-mybatis-common</artifactId>
-      <version>0.0.10</version>
-      <exclusions>
-        <exclusion>
-          <groupId>com.ecotech.common</groupId>
-          <artifactId>ecotech-common-lib</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
 
   </dependencies>
   <profiles>
@@ -321,27 +231,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <inherited>true</inherited>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>8</source>
+          <target>8</target>
           <encoding>utf-8</encoding>
-        </configuration>
-      </plugin>
-      <!-- Official doc on goals: http://tomcat.apache.org/maven-plugin-2.2/context-goals.html
-        Undeploy: mvn tomcat7:undeploy Deploy: mvn tomcat7:redeploy -->
-      <plugin>
-        <groupId>org.apache.tomcat.maven</groupId>
-        <artifactId>tomcat7-maven-plugin</artifactId>
-        <version>2.2</version>
-        <configuration>
-          <!-- <url>http://localhost:8080/manager/text</url> -->
-          <!-- <server>localtomcat</server> -->
-          <!-- prod -->
-          <url>http://54.223.155.204:3800/manager/text</url>
-          <!-- test -->
-          <!-- <url>http://54.223.172.38:3800/manager/text</url> -->
-          <server>AWSServer</server>
-          <path>/productservice</path>
-          <URIEncoding>UTF-8</URIEncoding>
         </configuration>
       </plugin>
 
@@ -368,11 +260,6 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.3.2</version>
           </dependency>
-          <dependency>
-            <groupId>com.ecotech.service</groupId>
-            <artifactId>ecotech-mybatis-common</artifactId>
-            <version>0.0.10</version>
-          </dependency>
         </dependencies>
       </plugin>
 
@@ -381,25 +268,6 @@
         <artifactId>maven-deploy-plugin</artifactId>
         <configuration>
           <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.5.1</version>
-        <executions>
-          <execution>
-            <id>default-deploy</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>deploy</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <serverId>ecotech-nexus</serverId>
-          <nexusUrl>http://10.5.201.116/content/repositories</nexusUrl>
-          <skipStaging>true</skipStaging>
         </configuration>
       </plugin>
       <plugin>
