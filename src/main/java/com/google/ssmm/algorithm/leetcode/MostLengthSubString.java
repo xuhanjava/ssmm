@@ -69,7 +69,7 @@ public class MostLengthSubString {
 
 
 /*
-public class Solution {
+public class MergeTwoLists {
     public int lengthOfLongestSubstring(String s) {
         int n = s.length();
         Set<Character> set = new HashSet<>();
@@ -92,7 +92,7 @@ public class Solution {
  */
 
 /*
-public class Solution {
+public class MergeTwoLists {
     public int lengthOfLongestSubstring(String s) {
         int n = s.length(), ans = 0;
         Map<Character, Integer> map = new HashMap<>(); // current index of character

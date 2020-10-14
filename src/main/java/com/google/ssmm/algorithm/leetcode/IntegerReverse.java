@@ -86,7 +86,7 @@ INTMAX
 当 \text{rev}rev 为负时可以应用类似的逻辑。
 
 C++Java
-class Solution {
+class MergeTwoLists {
     public int reverse(int x) {
         int rev = 0;
         while (x != 0) {

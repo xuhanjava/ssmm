@@ -123,7 +123,7 @@ public class ZhenzeMatch {
             for(int i = 0,j=0;i<sStr.length;j++){
 
             }
-
+            return true;
     }
 
 }

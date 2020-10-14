@@ -3,7 +3,8 @@ package com.google.ssmm;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class Cache2Test {
@@ -53,5 +54,17 @@ public class Cache2Test {
     @Test
     public void testUuid(){
         System.out.println(UUID.randomUUID().toString().length());
+    }
+
+    @Test
+    public void testTimer(){
+        Timer timer = new Timer();
+        timer. scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Timer is running");
+            }
+        }, 2000, 5000);
+        Timer timer2 = new Timer();
     }
 }

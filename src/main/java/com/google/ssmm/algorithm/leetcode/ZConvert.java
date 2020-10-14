@@ -91,7 +91,7 @@ public class ZConvert {
 只有当我们向上移动到最上面的行或向下移动到最下面的行时，当前方向才会发生改变。
 
 C++Java
-class Solution {
+class MergeTwoLists {
     public String convert(String s, int numRows) {
 
         if (numRows == 1) return s;
@@ -133,7 +133,7 @@ class Solution {
 行 \text{numRows}-1numRows−1 中的字符位于索引 k \; (2 \cdot \text{numRows} - 2) + \text{numRows} - 1k(2⋅numRows−2)+numRows−1 处;
 内部的 行 ii 中的字符位于索引 k \; (2 \cdot \text{numRows}-2)+ik(2⋅numRows−2)+i 以及 (k+1)(2 \cdot \text{numRows}-2)- i(k+1)(2⋅numRows−2)−i 处;
 C++Java
-class Solution {
+class MergeTwoLists {
     public String convert(String s, int numRows) {
 
         if (numRows == 1) return s;
