@@ -2,6 +2,8 @@ package com.google.ssmm.algorithm.leetcode;
 
 import com.google.ssmm.algorithm.leetcode.dongtai.LengthOfLIS;
 import com.google.ssmm.algorithm.leetcode.dongtai.OneAndZero;
+import com.google.ssmm.algorithm.leetcode.tiku.LFUCache;
+import com.google.ssmm.algorithm.leetcode.tiku.n155;
 
 public class Test {
     public static void main(String[] args) {
@@ -26,8 +28,25 @@ public class Test {
 //        System.out.println(list);
 //        System.out.println(remove);
         //testDongtai();
+        testLFUCache();
+        //lengthOfLIS();
+    }
 
-        lengthOfLIS();
+    public static void testMinStack(){
+        n155 s = new n155();
+        s.push(1);
+        s.push(-2);
+        s.push(1);
+        s.pop();
+        System.out.println(s.getMin());
+    }
+
+    public static void testLFUCache(){
+        LFUCache lfuCache = new LFUCache(2);
+        lfuCache.put(1,3);
+        lfuCache.put(1,3);
+        lfuCache.put(3,3);
+        lfuCache.put(4,1);
     }
 
     /**

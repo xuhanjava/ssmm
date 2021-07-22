@@ -1,5 +1,7 @@
 package com.google.ssmm;
 
+import com.google.ssmm.test.AopTest;
+
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -13,8 +15,27 @@ public class Main {
 //        value +=1;
 //        System.out.println(value.hashCode());
         //System.out.println(value);
-        test2();
+        //test2();
+        //LockSupport.park();
+        test4();
+    }
+    static void test4(){
+        AopTest a = new AopTest();
+        a.test4();
+    }
 
+
+    static int test3(){
+        int x;
+        try{
+            x=1;
+            return x;
+        }catch (Exception e){
+            x=2;
+            return x;
+        }finally {
+            x=3;
+        }
     }
 
     static void test2() {

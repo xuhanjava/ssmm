@@ -1,7 +1,7 @@
 package com.google.ssmm.algorithm.leetcode.tiku;
 
 public class n20 {
-    public static boolean isValid(String s) {
+        public static boolean isValid(String s) {
         if(s == null || s.length() == 0){
             return true;
         }

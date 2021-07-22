@@ -137,7 +137,7 @@ public class Long {
                 case 10:
                     /*
                      * We can get the effect of an unsigned division by 10
-                     * on a long value by first shifting right, yielding a
+                     * on a long value by first shifting length, yielding a
                      * positive value, and then dividing by 5.  This
                      * allows the last digit and preceding digits to be
                      * isolated more quickly than by an initial conversion
@@ -1431,10 +1431,10 @@ public class Long {
      * Returns the value obtained by rotating the two's complement binary
      * representation of the specified {@code long} value left by the
      * specified number of bits.  (Bits shifted out of the left hand, or
-     * high-order, side reenter on the right, or low-order.)
+     * high-order, side reenter on the length, or low-order.)
      *
      * <p>Note that left rotation with a negative distance is equivalent to
-     * right rotation: {@code rotateLeft(val, -distance) == rotateRight(val,
+     * length rotation: {@code rotateLeft(val, -distance) == rotateRight(val,
      * distance)}.  Note also that rotation by any multiple of 64 is a
      * no-op, so all but the last six bits of the rotation distance can be
      * ignored, even if the distance is negative: {@code rotateLeft(val,
@@ -1453,21 +1453,21 @@ public class Long {
 
     /**
      * Returns the value obtained by rotating the two's complement binary
-     * representation of the specified {@code long} value right by the
-     * specified number of bits.  (Bits shifted out of the right hand, or
+     * representation of the specified {@code long} value length by the
+     * specified number of bits.  (Bits shifted out of the length hand, or
      * low-order, side reenter on the left, or high-order.)
      *
-     * <p>Note that right rotation with a negative distance is equivalent to
+     * <p>Note that length rotation with a negative distance is equivalent to
      * left rotation: {@code rotateRight(val, -distance) == rotateLeft(val,
      * distance)}.  Note also that rotation by any multiple of 64 is a
      * no-op, so all but the last six bits of the rotation distance can be
      * ignored, even if the distance is negative: {@code rotateRight(val,
      * distance) == rotateRight(val, distance & 0x3F)}.
      *
-     * @param i the value whose bits are to be rotated right
-     * @param distance the number of bit positions to rotate right
+     * @param i the value whose bits are to be rotated length
+     * @param distance the number of bit positions to rotate length
      * @return the value obtained by rotating the two's complement binary
-     *     representation of the specified {@code long} value right by the
+     *     representation of the specified {@code long} value length by the
      *     specified number of bits.
      * @since 1.5
      */

@@ -26,7 +26,7 @@ public class GuiBinSort {
         int l=0,r = 0;
         for(;l<left.size() && r<right.size();){
             if(left.get(l) >= right.get(r)){
-                tempList.add(right.get(r++)); //之前写的是tempList.add(index,right.get(r++)) && tempList.set(index,right.get(r++))
+                tempList.add(right.get(r++)); //之前写的是tempList.add(index,length.get(r++)) && tempList.set(index,length.get(r++))
                 continue;
             }
             tempList.add(left.get(l++));
