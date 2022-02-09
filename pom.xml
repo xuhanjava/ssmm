@@ -17,7 +17,7 @@
     <model.target.dir>${basedir}/src/main/java</model.target.dir>
     <mappers.target.dir>${basedir}/src/main/resources</mappers.target.dir>
     <client.target.dir>${basedir}/src/main/java</client.target.dir>
-    <shiro.version>1.2.2</shiro.version>
+    <shiro.version>1.7.1</shiro.version>
   </properties>
   <parent>
     <groupId>org.springframework.boot</groupId>
