@@ -10,6 +10,7 @@ public class ZeroOneBag {
     public int w = 16; //背包承受的最大重量
     public Map<String,Integer> map = new HashMap();
 
+
     public void f(int i, int cw) { //调用f(0,0)
         if (cw == w || i == n) { // cw==w 表示装满了，i==n表示物品都考察完了
             if (cw > maxW) maxW = cw;

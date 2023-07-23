@@ -1,7 +1,9 @@
 package com.google.ssmm.algorithm.leetcode.tiku;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 //[2,7,6,3,5,1]
@@ -19,7 +21,9 @@ public class n39 {
         for(int i=index;i<candidates.length;i++){
             if(temp.size() == 3 && temp.get(temp.size() -1) == 2){
                 System.out.println(123);
+                Map<Integer,Integer> map = new HashMap<>();
             }
+
             if(candidates[i] == target - weight){
                 temp.add(candidates[i]);
                 result.add(new ArrayList<>(temp));

@@ -4,6 +4,7 @@ import com.google.ssmm.algorithm.leetcode.dongtai.LengthOfLIS;
 import com.google.ssmm.algorithm.leetcode.dongtai.OneAndZero;
 import com.google.ssmm.algorithm.leetcode.tiku.LFUCache;
 import com.google.ssmm.algorithm.leetcode.tiku.n155;
+import com.google.ssmm.algorithm.leetcode.tiku.water;
 
 public class Test {
     public static void main(String[] args) {
@@ -28,8 +29,10 @@ public class Test {
 //        System.out.println(list);
 //        System.out.println(remove);
         //testDongtai();
-        testLFUCache();
+        //testLFUCache();
         //lengthOfLIS();
+        water w = new water();
+        w.maxWater(new int[]{3,1,2,5,2,4});
     }
 
     public static void testMinStack(){

@@ -2,6 +2,7 @@ package com.google.ssmm;
 
 import com.google.ssmm.test.AopTest;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -10,86 +11,56 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
     public static void main(String[] args) {
-//        Integer value = 1;
-//        System.out.println(value.hashCode());
-//        value +=1;
-//        System.out.println(value.hashCode());
-        //System.out.println(value);
-        //test2();
-        //LockSupport.park();
-        test4();
-    }
-    static void test4(){
-        AopTest a = new AopTest();
-        a.test4();
+        System.out.println(getIndex(new int[]{1,3,5,7,2,1},3));
     }
 
-
-    static int test3(){
-        int x;
-        try{
-            x=1;
-            return x;
-        }catch (Exception e){
-            x=2;
-            return x;
-        }finally {
-            x=3;
+    public static int getIndex(int[] array,int target){
+        if(array == null || array.length ==0){
+            return -1;
         }
+        int left = 0;
+        int right = array.length-1;
+        return search(array,target,left,right);
     }
 
-    static void test2() {
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 2, 1000,
-                TimeUnit.SECONDS, new SynchronousQueue<>());
-        for (int i = 0; i < 4; i++) {
-            final int v = i;
-            executor.submit(() -> {
-                try {
-                    System.out.println(v);
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+    public static int search(int[] array,int target,int left,int right){
+        while(left <=right){
+            int middle = (left + right)/2;
+            if(array[middle] == target){
+                return middle;
+            }
+            if(array[middle]>target){
+                if(isInLeft(array,middle)){
+                    right = middle -1;
+                    return search(array,target,left,right);
+                }else{
+                    left = middle +1;
+                    return search(array,target,left,right);
+
                 }
-                System.out.println(123);
-            });
-        }
+            }else{
+                if(isInLeft(array,middle)){
+                    left = middle +1;
+                    return search(array,target,left,right);
 
-    }
-
-    static void test1() {
-        ReentrantLock lock = new ReentrantLock();
-        Condition condition = lock.newCondition();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                lock.lock();
-                System.out.println("await begin");
-                try {
-                    condition.await();
-                    System.out.println("await end");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    System.out.println("await final");
-                    lock.unlock();
+                }else{
+                    right = middle -1;
+                    return search(array,target,left,right);
                 }
             }
-        }).start();
+        }
+        return -1;
+    }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(6000);
-                    System.out.println("signal begin!");
-                    lock.lock();
-                    condition.signal();
-                    lock.unlock();
-                    System.out.println("signal end!");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    public static boolean isInLeft(int[]array,int index){
+        if(index == 0){
+            return true;
+        }
+        for(int i=index;i>0;i--){
+            if(array[i-1] < array[i]){
+                return true;
             }
-        }).start();
+        }
+        return false;
     }
 }
