@@ -8,16 +8,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class FinanceAnalyze {
 
     public static final String financeURL = "http://stockdata.stock.hexun.com/2008/zcfz.aspx?stockid=%s&accountdate=%s";
 
-    public static void getFinance(String stockId, String accountDate) {
-        String resp = HttpUtils.getResp(String.format(financeURL, stockId, accountDate));
-        System.out.println(resp);
+    public static Map<String,Object> getFinance(String stockId, String accountDate) {
+        String resp = HttpUtils.getHexunResp(String.format(financeURL, stockId, accountDate));
+        //System.out.println(resp);
 
         // Parse the HTML using Jsoup
         Document doc = Jsoup.parse(resp);
@@ -29,7 +27,7 @@ public class FinanceAnalyze {
         String extractedText = extractTextFromSpan(resp, "ControlEx1_lbl");
 
         // 打印提取的文本内容
-        System.out.println(extractedText );
+        //System.out.println(extractedText );
 
         // Create an instance of FinancialStatement
 
@@ -38,10 +36,11 @@ public class FinanceAnalyze {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String jsonString = objectMapper.writeValueAsString(result);
-            System.out.println(jsonString);
+            //System.out.println(jsonString);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     private static String extractTextFromSpan(String html, String spanId) {

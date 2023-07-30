@@ -32,7 +32,7 @@
 
     <!-- 未处理的日志文件，包含错误和debug-->
     <appender name="file_appender_daily" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="file" value="/data/log/SSMM.RAW.log"/>
+        <param name="file" value="~/code/SSMM.RAW.log"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd-HH" />
          <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
         <param name="Append" value="true" />
@@ -45,7 +45,7 @@
 
     <!-- io日志文件 -->
     <appender name="io_file_appender_daily" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="file" value="/data/log/SSMM.IO.log"/>
+        <param name="file" value="~/code/SSMM.IO.log"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd-HH" />
          <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
         <param name="Append" value="true" />
@@ -58,7 +58,7 @@
 
     <!-- 性能日志文件 -->
         <appender name="performance_file_appender_daily" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="file" value="/data/log/SSMM.Performance.log"/>
+        <param name="file" value="~/code/SSMM.Performance.log"/>
         <param name="DatePattern" value="'.'yyyy-MM-dd-HH" />
          <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
         <param name="Append" value="true" />

@@ -1,5 +1,6 @@
 package com.google.ssmm.finance.xueqiu;
 
+import com.google.ssmm.utils.EmailUtils;
 import com.google.ssmm.utils.HttpUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -52,7 +53,7 @@ public class XueQiuMain {
                 double currentYearPercent = stockData.get("current_year_percent").getAsDouble();
 
 //                System.out.println("股票代码: " + symbol);
-                  System.out.println("当前价: " + current);
+                System.out.println("当前价: " + current);
 //                System.out.println("当日新增比: " + percent);
 //                System.out.println("Change: " + chg);
 //                System.out.println("Timestamp: " + timestamp);
@@ -69,13 +70,17 @@ public class XueQiuMain {
 
                 if (alertLowerPrice != null) {
                     if (current <= alertLowerPrice) {
-                        System.out.println(String.format("warn! 价格已突破下限 当前价格 %s 下限价格 %s 购买价格 %s 当前升降比例 %s", current, alertLowerPrice, buyPrice, "" + (percentageFormat.format(buyPrice / current - 1))));
+                        String content =  String.format("warn! 价格已突破下限 当前价格 %s 下限价格 %s 购买价格 %s 当前升降比例 %s", current, alertLowerPrice, buyPrice, "" + (percentageFormat.format(buyPrice / current - 1)));
+                        System.out.println(content);
+                        EmailUtils.sendEmail(symbol +"下限突破",content);
                     }
                 }
 
                 if (alertUpperPrice != null) {
                     if (current >= alertUpperPrice) {
-                        System.out.println(String.format("warn! 价格已突破上限 当前价格 %s 上限价格 %s 购买价格 %s 当前升降比例 %s", current, alertUpperPrice, buyPrice, "" + (percentageFormat.format(buyPrice / current - 1))));
+                        String content = String.format("warn! 价格已突破上限 当前价格 %s 上限价格 %s 购买价格 %s 当前升降比例 %s", current, alertUpperPrice, buyPrice, "" + (percentageFormat.format(buyPrice / current - 1)));
+                        System.out.println(content);
+                        EmailUtils.sendEmail(symbol+"上限突破",content);
                     }
                 }
             }
