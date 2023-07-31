@@ -6,8 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.ssmm.utils.MacDialogBoxUtils;
 
 import java.text.DecimalFormat;
+import java.util.Date;
 
 /**
  * @author xuhan
@@ -21,7 +23,7 @@ public class XueQiuMain {
         long time = System.currentTimeMillis();
         while (true) {
             String resp = HttpUtils.getXueQiuResp(String.format(financeURL, "SH513130", time));
-            parseString(resp, new Double(0.608), 0.618, 0.604);
+            parseString(resp, new Double(0.608), 0.508, 0.504);
             Thread.sleep(1000);
         }
     }
@@ -53,7 +55,7 @@ public class XueQiuMain {
                 double currentYearPercent = stockData.get("current_year_percent").getAsDouble();
 
 //                System.out.println("股票代码: " + symbol);
-                System.out.println("当前价: " + current);
+                System.out.println(new Date() + ",当前价: " + current);
 //                System.out.println("当日新增比: " + percent);
 //                System.out.println("Change: " + chg);
 //                System.out.println("Timestamp: " + timestamp);
@@ -73,6 +75,7 @@ public class XueQiuMain {
                         String content =  String.format("warn! 价格已突破下限 当前价格 %s 下限价格 %s 购买价格 %s 当前升降比例 %s", current, alertLowerPrice, buyPrice, "" + (percentageFormat.format(buyPrice / current - 1)));
                         System.out.println(content);
                         EmailUtils.sendEmail(symbol +"下限突破",content);
+                        //MacDialogBoxUtils.displayDialog("下");
                     }
                 }
 
@@ -81,6 +84,8 @@ public class XueQiuMain {
                         String content = String.format("warn! 价格已突破上限 当前价格 %s 上限价格 %s 购买价格 %s 当前升降比例 %s", current, alertUpperPrice, buyPrice, "" + (percentageFormat.format(buyPrice / current - 1)));
                         System.out.println(content);
                         EmailUtils.sendEmail(symbol+"上限突破",content);
+                        //MacDialogBoxUtils.displayDialog("上");
+
                     }
                 }
             }

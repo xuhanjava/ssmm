@@ -1,6 +1,7 @@
 package com.google.ssmm.utils;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -79,7 +80,20 @@ public class HttpUtils {
     }
 
     public static String getXueQiuResp(String apiURL) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        // Set your desired timeout values (in milliseconds)
+        int connectionTimeout = 1000; // Timeout for establishing the connection
+        int socketTimeout = 2000; // Timeout for waiting for data
+
+        // Create custom RequestConfig with the desired timeout values
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setConnectTimeout(connectionTimeout)
+                .setSocketTimeout(socketTimeout)
+                .build();
+
+        // Use the custom RequestConfig when building the CloseableHttpClient
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setDefaultRequestConfig(requestConfig)
+                .build();
         CloseableHttpResponse response = null;
         try {
             // 设置请求URL

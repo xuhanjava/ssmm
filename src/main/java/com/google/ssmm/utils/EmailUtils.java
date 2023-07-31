@@ -15,7 +15,7 @@ public class EmailUtils {
         //5min发一次
         String sendKey = subject;
         lastSendUnixMap.putIfAbsent(sendKey,0L);
-        if(System.currentTimeMillis() - lastSendUnixMap.get(sendKey) <  20 * 1000 ){
+        if(System.currentTimeMillis() - lastSendUnixMap.get(sendKey) <  60 * 1000 * 10){
             return true;
         }
         for(int i =0;i<fromEmailList.size();i++){
