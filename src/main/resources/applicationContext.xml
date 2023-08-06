@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-  xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
-  xmlns:aop="http://www.springframework.org/schema/aop"
-  xmlns:tx="http://www.springframework.org/schema/tx"
-  xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-   <!--lazy-init默认是false 就是在容器启动时候就实例话这个bean.另外如果scope设置为prototype的话，即使lazy-init为false，也不会在启动时候实例化这个bean-->
-   <bean id="serviceAspect" class="com.google.ssmm.interceptor.ServiceAspect" lazy-init="true"></bean>
-    <aop:config>
-      <aop:aspect id="b" ref="serviceAspect">
-        <aop:pointcut id="tx"
-          expression="execution(* com.google.ssmm.controller.*.*(..))" />
-        <aop:around pointcut-ref="tx" method="invoke" />
-      </aop:aspect>
-    </aop:config>
+    <!-- 加载properties文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties"/>
+    </bean>
 
+    <!-- 配置数据源 -->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/finance"/>
+        <property name="username" value="xuhan1"/>
+        <property name="password" value="88888888"/>
+    </bean>
 
-   <tx:advice id="txAdvice" transaction-manager="transactionManager">
-      <tx:attributes>
-        <!-- &lt;!&ndash;其他方法使用默认事务策略 &ndash;&gt;-->
-         <tx:method name="*" />
-      </tx:attributes>
-   </tx:advice>
-   <!-- <bean id="SpringContextHolder"
-      class="com.ecotech.businessoperationconsole.util.SpringContextHolder"
-      lazy-init="false" />
-    &lt;!&ndash; AOP配置 &ndash;&gt;
-    <aop:config>
-      &lt;!&ndash; pointcut元素定义一个切入点，execution中的第一个星号 用以匹配方法的返回类型，这里星号表明匹配所有返回类型。com.abc.dao.*.*(..)表明匹配com.abc.dao包下的所有类的所有方法 &ndash;&gt;
-      <aop:pointcut
-        expression="execution(public * com.ecotech.businessoperationconsole.dao.impl.*.*(..))"
-        id="daoPoint" />
-      <aop:pointcut
-        expression="execution(public * com.ecotech.businessoperationconsole.logic.*.*(..))"
-        id="logicPoint" />
-      &lt;!&ndash;将定义好的事务处理策略应用到上述的切入点 &ndash;&gt;
-      <aop:advisor advice-ref="txAdvice" pointcut-ref="daoPoint" />
-      <aop:advisor advice-ref="txAdvice" pointcut-ref="logicPoint" />
-    </aop:config>-->
+    <!-- mybatis和spring完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 扫描model包 -->
+        <property name="typeAliasesPackage" value="com.google.ssmm.entity"/>
+        <!-- 扫描sql配置文件:mapper需要的xml文件-->
+        <property name="mapperLocations" value="classpath:com/google/ssmm/mappers/*.xml"/>
+    </bean>
+
+    <!-- Mapper动态代理开发，扫描dao接口包-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 给出需要扫描Dao接口包 -->
+        <property name="basePackage" value="com.google.ssmm.dao"/>
+    </bean>
+
+    <!-- 事务管理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <context:component-scan base-package="com.google.ssmm"/>
 
 </beans>

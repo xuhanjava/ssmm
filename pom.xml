@@ -11,9 +11,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Below properties will be used in mybatis-generator.xml -->
     <jdbc.driverClass>com.mysql.jdbc.Driver</jdbc.driverClass>
-    <jdbc.connectionURL>jdbc:mysql://localhost:3306/xuhan</jdbc.connectionURL>
-    <jdbc.userId>root</jdbc.userId>
-    <jdbc.password>root</jdbc.password>
+    <jdbc.connectionURL>jdbc:mysql://localhost:3306/finance</jdbc.connectionURL>
+    <jdbc.userId>xuhan1</jdbc.userId>
+    <jdbc.password>88888888</jdbc.password>
     <model.target.dir>${basedir}/src/main/java</model.target.dir>
     <mappers.target.dir>${basedir}/src/main/resources</mappers.target.dir>
     <client.target.dir>${basedir}/src/main/java</client.target.dir>
@@ -44,16 +44,17 @@
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <version>3.2.8</version>
+      <version>3.5.6</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.26</version>
     </dependency>
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis-spring</artifactId>
-      <version>1.2.2</version>
+      <version>1.3.1</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
@@ -313,13 +314,13 @@
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.34</version>
+            <version>8.0.26</version>
           </dependency>
 
           <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.2</version>
+            <version>1.4.0</version>
           </dependency>
         </dependencies>
       </plugin>

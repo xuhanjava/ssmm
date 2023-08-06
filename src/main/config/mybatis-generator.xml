@@ -6,18 +6,10 @@
 <!-- mybatis-generator插件生成代码的配置文件 -->
 <generatorConfiguration>
 
-    <context id="MySQLTables" targetRuntime="com.ecotech.ecotechmybatiscommon.common.IntrospectedTableEcoTechImpl">
-
-        <plugin type="com.ecotech.ecotechmybatiscommon.type.EcoTechExtandPlugin"></plugin>
-
-        <commentGenerator>
-            <property name="suppressDate" value="true"/>
-        </commentGenerator>
-
-        <jdbcConnection driverClass="${jdbc.driverClass}"
-                        connectionURL="${jdbc.connectionURL}" userId="${jdbc.userId}"
-                        password="${jdbc.password}">
-        </jdbcConnection>
+    <context id="myBatis3" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/finance"
+                        userId="xuhan1" password="88888888"/>
 
         <!-- java类型处理器，默认的就这么一个处理器可以用，可以自己写，具体的请参考官方文档http://code.google.com/p/mybatis/wiki/Generator -->
         <javaTypeResolver>
@@ -82,7 +74,6 @@
         <!--     <table schema="" tableName="PLACE_ONELINE_PAY_CONTRACT" domainObjectName="PlaceOnlinePayContract"></table> -->
         <!--<table schema="" tableName="PLACE_QUALIFICATION" domainObjectName="PlaceQualification"></table>-->
         <!--<table schema="" tableName="SERVICE_CONTRACT" domainObjectName="ServiceContract"></table>-->
-        <table schema="" tableName="TABLE_ONE" domainObjectName="TableOne"></table>
-        <table schema="" tableName="TABLE_TWO" domainObjectName="TableTwo"></table>
+        <table schema="" tableName="FINANCE_POINT" domainObjectName="FinancePoint"></table>
     </context>
 </generatorConfiguration>
